@@ -1,0 +1,10 @@
+{% extends 'base.jinja' %}
+{% block title %} Transforms {% endblock %}
+
+{% block content %}
+  {% for i, transform in transforms %}
+    <a href="transform/{{ i }}">
+      {{ transform.__name__ }}
+    </a>
+  {% endfor %}
+{% endblock %}

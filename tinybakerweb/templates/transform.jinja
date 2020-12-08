@@ -1,0 +1,24 @@
+{% extends 'base.jinja' %}
+{% block title %} {{ transform.__name__ }} {% endblock %}
+
+{% block content %}
+  <h2>
+    {{ transform.__name__ }}
+  </h2>
+  <h3>Input tags:</h3>
+  <ul>
+  {% for tag in transform.input_tags %}
+    <li>
+      {{ tag }}
+    </li>
+  {% endfor %}
+  </ul>
+  <h3>Output tags:</h3>
+  <ul>
+    {% for tag in transform.output_tags %}
+    <li>
+      {{ tag }}
+    </li>
+  {% endfor %}
+  </ul>
+{% endblock %}

@@ -1,0 +1,19 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+tinybakerweb = {editable = true, path = "."}
+pytest = "*"
+black = "*"
+
+[packages]
+flask = "*"
+tinybaker = "*"
+
+[requires]
+python_version = "3.8"
+
+[pipenv]
+allow_prereleases = true
