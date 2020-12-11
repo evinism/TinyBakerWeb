@@ -11,6 +11,8 @@ black = "*"
 [packages]
 flask = "*"
 tinybaker = "*"
+swagger_server = {editable = true, path = "libgen/"}
+
 
 [requires]
 python_version = "3.8"

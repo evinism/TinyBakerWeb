@@ -158,20 +158,20 @@ paths:
         "400":
           description: "Invalid ID supplied"
         "404":
-          description: "Order not found"
+          description: "Job not found"
     delete:
       tags:
         - "jobs"
       summary: "Delete Job"
       description: ""
-      operationId: "deleteOrder"
+      operationId: "deleteJob"
       produces:
         - "application/xml"
         - "application/json"
       parameters:
         - name: "jobId"
           in: "path"
-          description: "ID of the order that needs to be deleted"
+          description: "ID of the job that needs to be deleted"
           required: true
           type: "integer"
           minimum: 1.0
@@ -185,7 +185,7 @@ paths:
     post:
       tags:
         - "filestore"
-      summary: "Triggers a TinyBaker transform to run"
+      summary: "Stores a file in TinyBakerWeb's local filestore"
       description: ""
       operationId: "createFile"
       consumes:
@@ -212,7 +212,7 @@ paths:
     get:
       tags:
         - "filestore"
-      summary: "Get job by ID"
+      summary: "Get file by ID"
       description: ""
       operationId: "getFileById"
       produces:
@@ -221,7 +221,7 @@ paths:
       parameters:
         - name: "fileId"
           in: "path"
-          description: "ID of job that needs to be fetched"
+          description: "ID of file that needs to be fetched"
           required: true
           type: "integer"
           minimum: 1.0
