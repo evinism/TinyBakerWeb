@@ -23,7 +23,7 @@ def project_tag_for_api(name):
 def project_transform_for_api(index, transform):
     return {
         "id": index,
-        "name": transform.__name__,
+        "name": transform.name,
         "inputTags": [project_tag_for_api(tag) for tag in transform.input_tags],
         "outputTags": [project_tag_for_api(tag) for tag in transform.output_tags]
     }

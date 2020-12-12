@@ -10,7 +10,7 @@ black = "*"
 
 [packages]
 flask = "*"
-tinybaker = "*"
+tinybaker = ">=0.2.3"
 swagger_server = {editable = true, path = "libgen/"}
 
 
