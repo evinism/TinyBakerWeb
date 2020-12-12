@@ -7,9 +7,14 @@ export type ApiResponse<T> =
   | ResponseSuccess<T>
   | ResponseFailure;
 
+export interface Tag {
+  name: string;
+  type: "file" | "fileset";
+}
+
 export interface Transform {
   id: number;
   name: string;
-  input_tags: string[];
-  output_tags: string[];
+  inputTags: Array<Tag>;
+  outputTags: Array<Tag>;
 }

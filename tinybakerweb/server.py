@@ -1,28 +1,38 @@
+#!/usr/bin/env python3
 from typing import Iterable
-from flask import Flask, render_template
+import connexion
+from flask import send_from_directory
+from swagger_server import encoder
+from .datastore import datastore
+
+def set_up_static_paths(app):
+  @app.app.route('/<path:path>')
+  def send_public(path):
+    return send_from_directory('./public', path)
+
+  @app.app.route('/static/css/<path:path>')
+  def send_static_css(path):
+    return send_from_directory('./public/static/css', path)
+
+  @app.app.route('/static/js/<path:path>')
+  def send_static_js(path):
+    return send_from_directory('./public/static/js', path)
+
+  @app.app.route('/')
+  def index():
+    return send_from_directory('./public', "index.html")
+  
 
 def build_server(transforms: Iterable):
-  app = Flask(__name__)
+  datastore.transforms = transforms
+  app = connexion.FlaskApp(__name__, specification_dir='./../libgen/swagger_server/swagger/')
+  app.app.json_encoder = encoder.JSONEncoder
+  app.add_api('swagger.yaml', arguments={'title': 'TinyBaker Web'}, pythonic_params=True)
 
-  @app.route('/')
-  def index():
-    return render_template('index.jinja')
-
-  @app.route('/api/transforms')
-  def get_transforms():
-    return {"data":[{
-      "name": transform.__name__,
-      "input_tags": list(transform.input_tags),
-      "output_tags": list(transform.output_tags)
-    } for transform in transforms]}
-
-  @app.route('/api/transform/<id>')
-  def get_transform(id):
-    transform = transforms[id]
-    return {
-      "name": transform.__name__,
-      "input_tags": transform.input_tags,
-      "output_tags": transform.output_tags
-    }
-
+  set_up_static_paths(app)
   return app
+
+
+if __name__ == '__main__':
+  app = build_server([])
+  app.run(port=3000)
