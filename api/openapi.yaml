@@ -181,6 +181,7 @@ paths:
           description: "Invalid ID supplied"
         "404":
           description: "Job not found"
+
   /files:
     post:
       tags:
@@ -257,6 +258,7 @@ paths:
           description: "Invalid ID supplied"
         "404":
           description: "File not found"
+
 definitions:
   Transform:
     type: "object"

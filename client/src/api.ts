@@ -18,3 +18,9 @@ export function getTransforms(): Promise<Transform[]> {
       transforms.data.map((transform) => fullyQualify(transform))
     );
 }
+
+export function getTransform(id: number): Promise<Transform> {
+  return transformApi
+    .getTransformById(id)
+    .then((transform) => fullyQualify(transform.data));
+}
