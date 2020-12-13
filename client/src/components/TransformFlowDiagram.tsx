@@ -20,28 +20,50 @@ const engine = createEngine();
 
 type PortClosure = { [key: string]: DefaultPortModel };
 
+const NUM_LEFT_MULTIPLIER = 100;
+const NUM_TOP_MULTIPLIER = 100;
+
 const buildNodesHelper = (
   structure: Structure,
   closure: PortClosure,
-  diagram: DiagramModel
+  diagram: DiagramModel,
+  arbitraryDisplayData: any
 ) => {
-  const transformNode = new DefaultNodeModel({
-    name: structure.name,
-    color: "rgb(0,192,255)",
-  });
+  if (structure.type === "sequence") {
+    structure.steps.forEach((step) => {
+      buildNodesHelper(step, closure, diagram, arbitraryDisplayData);
+      arbitraryDisplayData.numLeft++;
+    });
+  } else if (structure.type === "merge") {
+    structure.steps.forEach((step) => {
+      buildNodesHelper(step, closure, diagram, arbitraryDisplayData);
+      arbitraryDisplayData.numTop++;
+    });
+  } else {
+    const transformNode = new DefaultNodeModel({
+      name: structure.name,
+      color: "rgb(0,192,255)",
+    });
 
-  diagram.addNode(transformNode);
+    diagram.addNode(transformNode);
 
-  structure.input_tags.forEach((tag) => {
-    const clPort = closure[tag]!; // We know this exists because we're cool
-    const outPort = lock(transformNode.addInPort(tag));
-    const link = clPort.link<DefaultLinkModel>(outPort);
-    diagram.addLink(link);
-  });
+    structure.input_tags.forEach((tag) => {
+      const clPort = closure[tag]!; // We know this exists because we're cool
+      const outPort = lock(transformNode.addInPort(tag));
+      const link = clPort.link<DefaultLinkModel>(outPort);
+      diagram.addLink(link);
+    });
 
-  structure.output_tags.forEach((tag) => {
-    closure[tag] = lock(transformNode.addOutPort(tag));
-  });
+    structure.output_tags.forEach((tag) => {
+      closure[tag] = lock(transformNode.addOutPort(tag));
+    });
+
+    transformNode.setPosition(
+      10 + arbitraryDisplayData.numLeft * NUM_LEFT_MULTIPLIER,
+      10 + arbitraryDisplayData.numTop * NUM_TOP_MULTIPLIER
+    );
+    arbitraryDisplayData.numLeft++;
+  }
 };
 
 const buildNodes = (structure: Structure) => {
@@ -64,7 +86,6 @@ const buildNodes = (structure: Structure) => {
     name: "Outputs",
     color: purp,
   });
-  outputNode.setPosition(400, 10);
 
   diagram.addAll(inputNode, outputNode);
 
@@ -72,9 +93,13 @@ const buildNodes = (structure: Structure) => {
     closure[tag] = lock(inputNode.addOutPort(tag));
   });
 
-  // MAIN SEQUENCE
+  const arbitraryDisplayData: any = {
+    numLeft: 1,
+    numTop: 0,
+  };
 
-  buildNodesHelper(structure, closure, diagram);
+  // MAIN SEQUENCE
+  buildNodesHelper(structure, closure, diagram, arbitraryDisplayData);
 
   // AND FINISH UP
   structure.output_tags.forEach((tag) => {
@@ -83,6 +108,11 @@ const buildNodes = (structure: Structure) => {
     const link = clPort.link<DefaultLinkModel>(outPort);
     diagram.addLink(link);
   });
+
+  outputNode.setPosition(
+    10 + arbitraryDisplayData.numLeft * NUM_LEFT_MULTIPLIER,
+    10
+  );
 
   engine.setModel(diagram);
 };
