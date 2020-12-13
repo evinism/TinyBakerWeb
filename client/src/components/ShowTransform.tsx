@@ -16,6 +16,7 @@ const ShowTransform = () => {
           <h2>{transform.name}</h2>
           {transform.inputTags.map((tag) => tag.name).join(", ")}→
           {transform.outputTags.map((tag) => tag.name).join(", ")}
+          <pre>{JSON.stringify(transform.structure, null, 2)}</pre>
         </div>
       )}
     </SpinErr>

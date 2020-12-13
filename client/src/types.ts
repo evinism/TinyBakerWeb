@@ -17,4 +17,5 @@ export interface Transform {
   name: string;
   inputTags: Array<Tag>;
   outputTags: Array<Tag>;
+  structure: Object;
 }

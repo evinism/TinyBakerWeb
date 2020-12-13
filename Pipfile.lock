@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "d7f710b37c37ce474ae39d415cf7b4d59c96433bf4cb694f900cc90ace18824c"
+            "sha256": "ba58d35252f15d0dc6939342aac68d499f545a80e75114a4b21b329b18d64f85"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -241,11 +241,11 @@
         },
         "tinybaker": {
             "hashes": [
-                "sha256:832571e2960a1ac13d2e00f7a6b7d0dad2db5f6d5b8bfcddf7eb76f3cfa06e3e",
-                "sha256:ce0e566cea1e392b5e09e14ce5534dfe5aa3628292bdfd9122ec8f466911bccf"
+                "sha256:3ab3f92db798114f97c9cd7c5b24fdeac0e02896b70a44a96ea32db6d9115cc0",
+                "sha256:6a28ab37323a4ef48bbc64160dc5833497e56bcd85a8d23dfd7db00c4a60b9bc"
             ],
             "index": "pypi",
-            "version": "==0.2.3"
+            "version": "==0.2.4"
         },
         "typeguard": {
             "hashes": [
@@ -497,11 +497,11 @@
         },
         "tinybaker": {
             "hashes": [
-                "sha256:832571e2960a1ac13d2e00f7a6b7d0dad2db5f6d5b8bfcddf7eb76f3cfa06e3e",
-                "sha256:ce0e566cea1e392b5e09e14ce5534dfe5aa3628292bdfd9122ec8f466911bccf"
+                "sha256:3ab3f92db798114f97c9cd7c5b24fdeac0e02896b70a44a96ea32db6d9115cc0",
+                "sha256:6a28ab37323a4ef48bbc64160dc5833497e56bcd85a8d23dfd7db00c4a60b9bc"
             ],
             "index": "pypi",
-            "version": "==0.2.3"
+            "version": "==0.2.4"
         },
         "tinybakerweb": {
             "editable": true,

@@ -276,6 +276,14 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/Tag"
+      structure:
+        type: "object"
+    required:
+      - id
+      - name
+      - inputTags
+      - outputTags
+      - structure
     xml:
       name: "Transform"
   Job:
@@ -297,6 +305,10 @@ definitions:
           - "success"
     xml:
       name: "Job"
+    required:
+      - id
+      - transformId
+      - status
   Tag:
     type: "object"
     properties:
@@ -310,6 +322,9 @@ definitions:
           - "fileset"
     xml:
       name: "Tag"
+    required:
+      - name
+      - type
   FileRecord:
     type: "object"
     properties:

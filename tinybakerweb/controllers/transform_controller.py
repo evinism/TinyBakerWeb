@@ -25,7 +25,8 @@ def project_transform_for_api(index, transform):
         "id": index,
         "name": transform.name,
         "inputTags": [project_tag_for_api(tag) for tag in transform.input_tags],
-        "outputTags": [project_tag_for_api(tag) for tag in transform.output_tags]
+        "outputTags": [project_tag_for_api(tag) for tag in transform.output_tags],
+        "structure": transform.structure(),
     }
 
 
