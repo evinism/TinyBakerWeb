@@ -1,6 +1,7 @@
 import createEngine, {
   DefaultLinkModel,
   DefaultNodeModel,
+  DefaultPortModel,
   DiagramModel,
 } from "@projectstorm/react-diagrams";
 
@@ -9,11 +10,49 @@ import styled from "styled-components";
 import { CanvasWidget } from "@projectstorm/react-canvas-core";
 import { Structure, Transform } from "../types";
 
+function lock(port: DefaultPortModel) {
+  port.setLocked(true);
+  return port;
+}
+
 // Right now, this component is a singleton.
 const engine = createEngine();
 
+type PortClosure = { [key: string]: DefaultPortModel };
+
+const buildNodesHelper = (
+  structure: Structure,
+  closure: PortClosure,
+  diagram: DiagramModel
+) => {
+  const transformNode = new DefaultNodeModel({
+    name: structure.name,
+    color: "rgb(0,192,255)",
+  });
+
+  diagram.addNode(transformNode);
+
+  structure.input_tags.forEach((tag) => {
+    const clPort = closure[tag]!; // We know this exists because we're cool
+    const outPort = lock(transformNode.addInPort(tag));
+    const link = clPort.link<DefaultLinkModel>(outPort);
+    diagram.addLink(link);
+  });
+
+  structure.output_tags.forEach((tag) => {
+    closure[tag] = lock(transformNode.addOutPort(tag));
+  });
+};
+
 const buildNodes = (structure: Structure) => {
   const purp = "rgb(160,90,190)";
+
+  const diagram = new DiagramModel();
+
+  // This is canonical-- it gets passed through and modified by everything
+  const closure: PortClosure = {};
+
+  // === SET UP INPUT AND OUTPUT NODES ===
 
   const inputNode = new DefaultNodeModel({
     name: "Inputs",
@@ -27,26 +66,25 @@ const buildNodes = (structure: Structure) => {
   });
   outputNode.setPosition(400, 10);
 
-  const transformNode = new DefaultNodeModel({
-    name: structure.name,
-    color: "rgb(0,192,255)",
-  });
-  transformNode.setPosition(100, 10);
+  diagram.addAll(inputNode, outputNode);
 
-  const inputNodePorts = structure.input_tags.map((tag) => {
-    inputNode.addOutPort(tag);
-    transformNode.addInPort(tag);
-    return {};
-  });
-  const outputNodePorts = structure.output_tags.map((tag) => {
-    outputNode.addInPort(tag);
-    transformNode.addOutPort(tag);
-    return {};
+  structure.input_tags.forEach((tag) => {
+    closure[tag] = lock(inputNode.addOutPort(tag));
   });
 
-  const model = new DiagramModel();
-  model.addAll(inputNode, transformNode, outputNode);
-  engine.setModel(model);
+  // MAIN SEQUENCE
+
+  buildNodesHelper(structure, closure, diagram);
+
+  // AND FINISH UP
+  structure.output_tags.forEach((tag) => {
+    const clPort = closure[tag]!; // We know this exists because we're cool
+    const outPort = lock(outputNode.addInPort(tag));
+    const link = clPort.link<DefaultLinkModel>(outPort);
+    diagram.addLink(link);
+  });
+
+  engine.setModel(diagram);
 };
 
 const Wrapper = styled.div`
@@ -60,12 +98,9 @@ const Wrapper = styled.div`
 const TransformFlowDiagram = ({ transform }: { transform: Transform }) => {
   buildNodes(transform.structure);
   return (
-    <>
-      <Wrapper>
-        <CanvasWidget engine={engine} />
-      </Wrapper>
-      <pre>{JSON.stringify(transform.structure, null, 2)}</pre>
-    </>
+    <Wrapper>
+      <CanvasWidget engine={engine} />
+    </Wrapper>
   );
 };
 
