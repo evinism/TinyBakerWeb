@@ -11,8 +11,10 @@ black = "*"
 [packages]
 flask = "*"
 tinybaker = ">=0.2.3"
+connexion = {extras = ["swagger-ui"], version = "*"}
 swagger_server = {editable = true, path = "libgen/"}
-
+click = "*"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.8"
