@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { getTransform } from "../api";
 import useResource from "../useResource";
 import SpinErr from "./SpinErr";
+import TransformFlowDiagram from "./TransformFlowDiagram";
 
 const ShowTransform = () => {
   const { transformId } = useParams<{ transformId?: string }>();
@@ -16,7 +17,7 @@ const ShowTransform = () => {
           <h2>{transform.name}</h2>
           {transform.inputTags.map((tag) => tag.name).join(", ")}→
           {transform.outputTags.map((tag) => tag.name).join(", ")}
-          <pre>{JSON.stringify(transform.structure, null, 2)}</pre>
+          <TransformFlowDiagram transform={transform} />
         </div>
       )}
     </SpinErr>

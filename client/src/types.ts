@@ -17,5 +17,39 @@ export interface Transform {
   name: string;
   inputTags: Array<Tag>;
   outputTags: Array<Tag>;
-  structure: Object;
+  structure: Structure;
 }
+
+// Warning: This is confusing and duplicated logic from within tinybaker!
+
+interface BaseStructure {
+  name: string;
+  input_tags: string[];
+  output_tags: string[];
+}
+
+interface LeafStructure extends BaseStructure {
+  type: "leaf";
+}
+
+interface SequenceStructure extends BaseStructure {
+  type: "sequence";
+  steps: Structure[];
+}
+
+interface MergeStructure extends BaseStructure {
+  type: "merge";
+  steps: Structure[];
+}
+
+interface MapStructure extends BaseStructure {
+  type: "map";
+  // Missing some structure!!
+  base_step: Structure[];
+}
+
+export type Structure =
+  | LeafStructure
+  | SequenceStructure
+  | MergeStructure
+  | MapStructure;
