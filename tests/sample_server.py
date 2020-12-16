@@ -94,6 +94,7 @@ def build_test_app():
             Predict,
             EvaluateResults,
         ],
+        exposed_intermediates={"model"},
         name="MLPipeline"
     )
 
