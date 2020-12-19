@@ -1,8 +1,10 @@
+import React from "react";
 import { useParams } from "react-router-dom";
-import { getTransform } from "../api";
-import useResource from "../useResource";
-import SpinErr from "./SpinErr";
+import { getTransform } from "../../api";
+import useResource from "../../useResource";
+import SpinErr from "../util/SpinErr";
 import TransformFlowDiagram from "./TransformFlowDiagram";
+import JobCreator from "./JobCreator";
 
 const ShowTransform = () => {
   const { transformId } = useParams<{ transformId?: string }>();
@@ -18,6 +20,7 @@ const ShowTransform = () => {
           {transform.inputTags.map((tag) => tag.name).join(", ")}→
           {transform.outputTags.map((tag) => tag.name).join(", ")}
           <TransformFlowDiagram transform={transform} />
+          <JobCreator transform={transform} />
         </div>
       )}
     </SpinErr>

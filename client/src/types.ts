@@ -20,6 +20,11 @@ export interface Transform {
   structure: Structure;
 }
 
+export interface FileRecord {
+  id: number;
+  path: string;
+}
+
 // Warning: This is confusing and duplicated logic from within tinybaker!
 
 interface BaseStructure {

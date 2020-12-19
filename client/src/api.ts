@@ -3,7 +3,7 @@ import {
   FilestoreApiFactory,
   JobsApiFactory,
 } from "./api-gen";
-import { Transform } from "./types";
+import { Transform, FileRecord } from "./types";
 
 import { fullyQualify } from "./util";
 
@@ -23,4 +23,10 @@ export function getTransform(id: number): Promise<Transform> {
   return transformApi
     .getTransformById(id)
     .then((transform) => fullyQualify(transform.data));
+}
+
+export function getFiles(): Promise<FileRecord[]> {
+  return filestoreApi
+    .getFiles()
+    .then((files) => files.data.map((file) => fullyQualify(file)));
 }

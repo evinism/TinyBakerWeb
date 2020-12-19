@@ -1,5 +1,5 @@
-import { ApiResponse } from "../types";
-import { isLoading, isFailure } from "../util";
+import { ApiResponse } from "../../types";
+import { isLoading, isFailure } from "../../util";
 
 interface SpinErrProps<T> {
   apiResponse: ApiResponse<T>;

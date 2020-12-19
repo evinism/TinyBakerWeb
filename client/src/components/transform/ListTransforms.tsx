@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { getTransforms } from "../api";
-import useResource from "../useResource";
-import SpinErr from "./SpinErr";
+import { getTransforms } from "../../api";
+import useResource from "../../useResource";
+import SpinErr from "../util/SpinErr";
 
 const ListTransforms = () => {
   const transforms = useResource(getTransforms);

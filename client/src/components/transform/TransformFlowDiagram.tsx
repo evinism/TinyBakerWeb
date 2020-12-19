@@ -8,7 +8,7 @@ import createEngine, {
 import styled from "styled-components";
 
 import { CanvasWidget } from "@projectstorm/react-canvas-core";
-import { Structure, Transform } from "../types";
+import { Structure, Transform } from "../../types";
 
 function lock(port: DefaultPortModel) {
   port.setLocked(true);

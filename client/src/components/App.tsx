@@ -1,8 +1,9 @@
 import React from "react";
 import Head from "./Header";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import ListTransforms from "./ListTransforms";
-import ShowTransform from "./ShowTransform";
+import ListTransforms from "./transform/ListTransforms";
+import ShowTransform from "./transform/ShowTransform";
+import FileStore from "./filestore/FileStore";
 
 function App() {
   return (
@@ -10,6 +11,9 @@ function App() {
       <Router>
         <Head />
         <Switch>
+          <Route path="/filestore">
+            <FileStore />
+          </Route>
           <Route path="/transforms/:transformId">
             <ShowTransform />
           </Route>

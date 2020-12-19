@@ -44,3 +44,13 @@ def get_file_by_id(file_id):  # noqa: E501
     :rtype: Job
     """
     return 'do some magic!'
+
+
+def get_files():  # noqa: E501
+    """Get files
+
+     # noqa: E501
+
+    :rtype: FileRecord[]
+    """
+    return 'do some magic!'

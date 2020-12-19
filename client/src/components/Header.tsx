@@ -38,6 +38,7 @@ const Head = () => (
       <PageList>
         <PageLink to="/">Transforms</PageLink>
         <PageLink to="/jobs">Jobs</PageLink>
+        <PageLink to="/filestore">Filestore</PageLink>
       </PageList>
     </nav>
   </Header>
