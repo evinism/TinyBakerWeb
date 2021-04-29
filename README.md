@@ -3,6 +3,7 @@
 A wrapper around [TinyBaker](https://github.com/evinism/TinyBaker) that exposes transformations over an extensible interface!!
 
 When this project is done, you should be able to create a batteries-included server that runs TinyBaker transforms, with a single function call.
+
 ```py
 from tinybakerweb import build_server
 from .local_project import FirstPipeline, SecondPipeline, YetAnotherPipeline
@@ -43,5 +44,5 @@ Frontend:
 Backend:
 
 ```sh
-pipenv run python bin/run_test_server.py
+pipenv run python run_test_server.py
 ```

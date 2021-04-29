@@ -10,7 +10,7 @@ black = "*"
 
 [packages]
 flask = "*"
-tinybaker = ">=0.3.0"
+tinybaker = ">=0.4.0"
 connexion = {extras = ["swagger-ui"], version = "*"}
 swagger_server = {editable = true, path = "libgen/"}
 click = "*"
